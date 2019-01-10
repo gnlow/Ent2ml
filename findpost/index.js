@@ -23,7 +23,7 @@ function newPost(title, content, username, created, target){
 			<div class="ui accordion">
 			<div class="title">
 			<div class="ui large header">${title}</div>
-			<div class="ui grid">
+			<div class="ui stackable grid">
 			<div class="eight wide column">
 			<a class="ui ${colorByRole(d.i.role)} large image label user">
 			${d.p}
