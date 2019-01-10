@@ -17,7 +17,7 @@ function newPost(title, content, username, created, target){
 		.then(function(dd){return {p:d,i:dd}})
 	})
 	.then(function(d){
-		$(target).html($(
+		$(target).text($(
 			`
 			<div class="ui left aligned raised segment" width="500px">
 			<div class="ui accordion">
