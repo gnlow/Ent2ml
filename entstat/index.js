@@ -1,9 +1,7 @@
 $(document).ready(function(){
-
-	ents.getUserByUsername(ents.nick)
+	ents.getProfileImage(ents.nick)
 	.then(function(d){
-		$('#profLabel').html('<img src="'+"https://playentry.org/uploads/profile/"+
-			d._id.substring(0,2)+"/"+d._id.substring(2,4)+"/avatar_"+d._id+".png"+'" onerror="'+"this.src='"+'https://playentry.org/img/assets/avatar_img.png'+"'"+'" id="prof">'+ents.nick);
+		$('#profLabel').html(d+ents.nick);
 	});
 	ents.getProjectTotal.views.ByUsername(ents.nick)
 	.then(function(d){

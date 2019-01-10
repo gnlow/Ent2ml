@@ -26,12 +26,12 @@ ents.getProjectByUsername = function(username){
 	});
 };
 ents.getProjectTotal.ByDataAndKey = function(d, key){
-		var sum = 0;
-		for(var i=0;i<d.data.length;i++){
-			sum = sum + d.data[i][key];
-		}
-		return sum;
-	};
+	var sum = 0;
+	for(var i=0;i<d.data.length;i++){
+		sum = sum + d.data[i][key];
+	}
+	return sum;
+};
 ents.getProjectTotal.views.ByData = function(d){
 	return ents.getProjectTotal.ByDataAndKey(d, "visit");
 };
@@ -64,4 +64,33 @@ ents.getProjectTotal.comments.ByUserID = function(userID){
 ents.getProjectTotal.comments.ByUsername = function(username){
 	return ents.getProjectByUsername(username)
 	.then(ents.getProjectTotal.comments.ByData);
+};
+ents.getProfileImage = function(username){
+	return ents.getUserByUsername(username)
+	.then(function(d){
+		return `<img src="https://playentry.org/uploads/profile/${
+			d._id.substring(0,2)}/${d._id.substring(2,4)}/avatar_${d._id}.png" onerror="this.src='https://playentry.org/img/assets/avatar_img.png'" id="prof">`
+		});
+};
+ents.getPostByID = function(ID){
+	return ents.get("https://playentry.org/api/discuss/"+ID);
+};
+ents.getPostList = function(category="free",title){
+	if(title){
+		return ents.get(`https://playentry.org/api/discuss/find?category=${category}&title=${title}&sort=created&rows=0`);
+	}else{
+		return ents.get(`https://playentry.org/api/discuss/find?category=${category}&sort=created&rows=20`);
+	}
+};
+ents.getPostListByDate = function(category, title, date1, date2){
+	return ents.getPostList(category, title)
+	.then(function(d){
+		if(date1&&date2){
+		return {data : d.data.filter(obj=>moment(obj.created).isBetween(date1,date2)),
+			skip : d.skip,
+			count : d.count};
+		}else{
+			return d;
+		};
+	});
 };
