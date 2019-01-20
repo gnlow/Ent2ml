@@ -68,7 +68,7 @@ ents.getProjectTotal.comments.ByUsername = function(username){
 ents.getProfileImage = function(username){
 	return ents.getUserByUsername(username)
 	.then(function(d){
-		return `<img src="https://playentry.org/uploads/profile/${
+		return `<img alt="User profile" src="https://playentry.org/uploads/profile/${
 			d._id.substring(0,2)}/${d._id.substring(2,4)}/avatar_${d._id}.png" onerror="this.src='https://playentry.org/img/assets/avatar_img.png'" id="prof">`
 		});
 };
