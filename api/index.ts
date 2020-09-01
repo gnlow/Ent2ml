@@ -1,5 +1,10 @@
-import { ServerRequest } from "https://deno.land/std/http/server.ts"
+import { Application, helpers } from "https://deno.land/x/oak@v6.0.1/mod.ts"
+const { getQuery } = helpers
 
-export default async (req: ServerRequest) => {
-    req.respond({body: "Hello, World!"})
-}
+const app = new Application
+
+app.use(ctx => {
+    ctx.response.body = getQuery(ctx)
+})
+
+export default app.handle
