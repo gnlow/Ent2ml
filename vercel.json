@@ -3,5 +3,8 @@
         "api/**/*.[jt]s": {
             "runtime": "vercel-deno@0.7.0" 
         }
-    }
+    },
+    "routes": [
+        {"src": "/api/rank/(visit|like|recentLike|staff|comment)", "dest": "/api/rank.js?sortBy=$1"}
+    ]
 }
