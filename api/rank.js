@@ -5,7 +5,7 @@ const app = new Application
 
 app.use(async ctx => {
     try {
-        const { sortBy } = getQuery(ctx)
+        const { sortBy, limit } = getQuery(ctx)
         const sortByKey = {
             visit: "visitCount",
             like: "likeCount",
@@ -62,6 +62,7 @@ app.use(async ctx => {
                 }
             })))
             .sort((a, b) => b[sortByKey] - a[sortByKey])
+            .slice(0, Number(limit))
     } catch (e) {
         ctx.response.body = e.toString()
     }
