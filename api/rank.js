@@ -1,20 +1,8 @@
 import { Application, helpers } from "https://deno.land/x/oak@v6.0.1/mod.ts"
 const { getQuery } = helpers
 
-const app = new Application
-
-app.use(async ctx => {
-    try {
-        const { sortBy, limit } = getQuery(ctx)
-        const sortByKey = {
-            visit: "visitCount",
-            like: "likeCount",
-            recentLike: "recentLikeCount",
-            staff: "staffCount",
-            comment: "commentCount"
-        }[sortBy] || "visitCount"
-
-        const staffPicks = await fetch("https://playentry.org/api/rankProject?type=staff&limit=0").then(x => x.json())
+const getData = async () => {
+    const staffPicks = await fetch("https://playentry.org/api/rankProject?type=staff&limit=0").then(x => x.json())
         let users = new Map()
         staffPicks.forEach(({project}) => {
             const username = project?.user?.username
@@ -28,7 +16,7 @@ app.use(async ctx => {
                 )
             }
         })
-        ctx.response.body = (await Promise.all(Array.from(users.entries())
+        return (await Promise.all(Array.from(users.entries())
             .map(async ([username, [id, count]]) => {
                 const [allData, staffData] = await Promise.all([
                     fetch(`https://playentry.org/api/project/find?&rows=0&tab=my_project&type=project&searching=true&user=${id}&blamed=false`).then(x => x.json()),
@@ -61,6 +49,22 @@ app.use(async ctx => {
                     commentCount,
                 }
             })))
+}
+
+const app = new Application
+
+app.use(async ctx => {
+    try {
+        const { sortBy, limit } = getQuery(ctx)
+        const sortByKey = {
+            visit: "visitCount",
+            like: "likeCount",
+            recentLike: "recentLikeCount",
+            staff: "staffCount",
+            comment: "commentCount"
+        }[sortBy] || "visitCount"
+
+        ctx.response.body = (await getData())
             .sort((a, b) => b[sortByKey] - a[sortByKey])
             .slice(0, Number(limit))
     } catch (e) {
