@@ -5,9 +5,18 @@
         }
     },
     "routes": [
+        { "handle": "filesystem" },
         {
             "src": "/api/rank/(visit|like|recentLike|staff|comment)", 
             "dest": "/api/rank.js?sortBy=$1"
+        },
+        {
+            "src": "/([^/.]{4,})",
+            "dest": "/user.html",
+            "continue": true,
+            "headers": {
+                "Set-Cookie": "username=$1"
+            }
         }
     ]
 }
