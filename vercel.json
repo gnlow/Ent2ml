@@ -5,6 +5,9 @@
         }
     },
     "routes": [
-        {"src": "/api/rank/(visit|like|recentLike|staff|comment)", "dest": "/api/rank.js?sortBy=$1"}
+        {
+            "src": "/api/rank/(visit|like|recentLike|staff|comment)", 
+            "dest": "/api/rank.js?sortBy=$1"
+        }
     ]
 }

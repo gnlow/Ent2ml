@@ -33,8 +33,41 @@
             "like like recentLike recentLike staff staff" 50%;
         font-size: 64px;
     }
-    visit {
+    rank {
+        position: absolute;
+        top: 60px;
+        left: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #E03997;
+        width: 60px;
+        height: 30px;
+        border-radius: 15px;
+        font-size: 22px;
+    }
+    value {
+        margin-left: 30px;
+    }
+    item {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+    #visit {
         grid-area: visit;
+    }
+    #comment {
+        grid-area: comment;
+    }
+    #like {
+        grid-area: like;
+    }
+    #recentLike {
+        grid-area: recentLike;
+    }
+    #staff {
+        grid-area: staff;
     }
 </style>
 
@@ -50,8 +83,30 @@
         </nickname>
     </identity>
     <scores>
-        <visit>
-            709439
-        </visit>
+        <item id="visit">
+            <img width="80" alt="visit" src="/img/visit.svg"/>
+            <rank>#4</rank>
+            <value>709439</value>
+        </item>
+        <item id="comment">
+            <img width="80" alt="comment" src="/img/comment.svg"/>
+            <rank>#10</rank>
+            <value>8181</value>
+        </item>
+        <item id="like">
+            <img width="80" alt="like" src="/img/like.svg"/>
+            <rank>#12</rank>
+            <value>7937</value>
+        </item>
+        <item id="recentLike">
+            <img width="80" alt="recentLike" src="/img/recentLike.svg"/>
+            <rank>#99</rank>
+            <value>9</value>
+        </item>
+        <item id="staff">
+            <img width="80" alt="staff" src="/img/staff.svg"/>
+            <rank>#10</rank>
+            <value>6</value>
+        </item>
     </scores>
 </box>
