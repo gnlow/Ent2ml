@@ -77,7 +77,7 @@ app.use(async ctx => {
 
         ctx.response.body = (await getData())
             .sort((a, b) => b[sortByKey] - a[sortByKey])
-            .slice(0, Number(limit))
+            .slice(0, limit && Number(limit))
     } catch (e) {
         ctx.response.body = e.toString()
     }
