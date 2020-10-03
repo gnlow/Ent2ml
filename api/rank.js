@@ -16,7 +16,7 @@ const getData = async () => {
             )
         }
     })
-    return (await Promise.all(Array.from(users.entries())
+    const data = (await Promise.all(Array.from(users.entries())
         .map(async ([username, [id, count]]) => {
             const [allData, staffData] = await Promise.all([
                 fetch(`https://playentry.org/api/project/find?&rows=0&tab=my_project&type=project&searching=true&user=${id}&blamed=false`).then(x => x.json()),
@@ -48,7 +48,18 @@ const getData = async () => {
                 recentLikeCount,
                 commentCount,
             }
-        })))
+        })));
+    ["visit",
+    "like",
+    "recentLike",
+    "staff",
+    "comment"].forEach(key => {
+        data.sort((a, b) => b[key+"Count"] - a[key+"Count"])
+            .forEach((x, i) => {
+                x[key+"Rank"] = i + 1
+            })
+    })
+    return data
 }
 
 const app = new Application
