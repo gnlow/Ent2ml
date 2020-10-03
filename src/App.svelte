@@ -50,7 +50,7 @@ onMount(async () => {
 {#if user}
     <box>
         <identity>
-            <img class="profile" alt="{user.id}" src="https://playentry.org/uploads/profile/{user.id.substring(0, 2)}/{user.id.substring(2, 4)}/avatar_{user.id}.png"/>
+            <img alt="{user.username}" src="https://playentry.org/uploads/profile/{user.id.substring(0, 2)}/{user.id.substring(2, 4)}/avatar_{user.id}.png"/>
             <nickname>
                 {user.username}
             </nickname>
