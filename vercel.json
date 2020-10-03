@@ -19,7 +19,7 @@
             "dest": "/user.html",
             "continue": true,
             "headers": {
-                "Set-Cookie": "username=$1"
+                "Set-Cookie": "username=$1; SameSite=Strict"
             }
         }
     ]
