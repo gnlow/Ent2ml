@@ -54,9 +54,17 @@ const getData = async () => {
     "recentLike",
     "staff",
     "comment"].forEach(key => {
+        let prevCount = 0
+        let prevRank = 0
         data.sort((a, b) => b[key+"Count"] - a[key+"Count"])
             .forEach((x, i) => {
-                x[key+"Rank"] = i + 1
+                if (prevCount == x[key+"Count"]) {
+                    x[key+"Rank"] = prevRank
+                } else {
+                    x[key+"Rank"] = i + 1
+                    prevCount = x[key+"Count"]
+                    prevRank = i + 1
+                }
             })
     })
     return data
