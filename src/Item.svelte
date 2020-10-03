@@ -28,6 +28,8 @@
 
 <item style="grid-area: {icon}">
     <img width="80" alt="{icon}" src="/img/{icon}.svg"/>
-    <rank>#{user[`${icon}Rank`]}</rank>
+    {#if user[`${icon}Rank`] < 100}
+        <rank>#{user[`${icon}Rank`]}</rank>
+    {/if}
     <value>{user[`${icon}Count`]}</value>
 </item>

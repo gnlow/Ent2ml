@@ -17,7 +17,9 @@
         height: 120px;
     }
     identity img {
-        height: 100%;
+        height: 120px;
+        width: 120px;
+        border-radius: 50%;
     }
     identity nickname {
         color: white;
@@ -32,9 +34,6 @@
             "visit visit visit comment comment comment"   50%
             "like like recentLike recentLike staff staff" 50%;
         font-size: 64px;
-    }
-    img.profile {
-        border-radius: 50%;
     }
 </style>
 
