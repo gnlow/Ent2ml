@@ -69,44 +69,53 @@
     #staff {
         grid-area: staff;
     }
+    img.profile {
+        border-radius: 50%;
+    }
 </style>
 
 <script lang="typescript">
+import { onMount } from "svelte"
+export let user
 
+onMount(async () => {
+    user = await fetch("/api/user").then(x => x.json())
+})
 </script>
-
-<box>
-    <identity>
-        <img alt="" src="https://playentry.org/uploads/profile/57/3f/avatar_573fa113b006225f746e3d4b.png?v=1601610575777"/>
-        <nickname>
-            dark
-        </nickname>
-    </identity>
-    <scores>
-        <item id="visit">
-            <img width="80" alt="visit" src="/img/visit.svg"/>
-            <rank>#4</rank>
-            <value>709439</value>
-        </item>
-        <item id="comment">
-            <img width="80" alt="comment" src="/img/comment.svg"/>
-            <rank>#10</rank>
-            <value>8181</value>
-        </item>
-        <item id="like">
-            <img width="80" alt="like" src="/img/like.svg"/>
-            <rank>#12</rank>
-            <value>7937</value>
-        </item>
-        <item id="recentLike">
-            <img width="80" alt="recentLike" src="/img/recentLike.svg"/>
-            <rank>#99</rank>
-            <value>9</value>
-        </item>
-        <item id="staff">
-            <img width="80" alt="staff" src="/img/staff.svg"/>
-            <rank>#10</rank>
-            <value>6</value>
-        </item>
-    </scores>
-</box>
+{#if user}
+    <box>
+        <identity>
+            <img class="profile" alt="{user.id}" src="https://playentry.org/uploads/profile/{user.id.substring(0, 2)}/{user.id.substring(2, 4)}/avatar_{user.id}.png"/>
+            <nickname>
+                {user.username}
+            </nickname>
+        </identity>
+        <scores>
+            <item id="visit">
+                <img width="80" alt="visit" src="/img/visit.svg"/>
+                <rank>#{user.visitRank}</rank>
+                <value>{user.visitCount}</value>
+            </item>
+            <item id="comment">
+                <img width="80" alt="comment" src="/img/comment.svg"/>
+                <rank>#{user.commentRank}</rank>
+                <value>{user.commentCount}</value>
+            </item>
+            <item id="like">
+                <img width="80" alt="like" src="/img/like.svg"/>
+                <rank>#{user.likeRank}</rank>
+                <value>{user.likeCount}</value>
+            </item>
+            <item id="recentLike">
+                <img width="80" alt="recentLike" src="/img/recentLike.svg"/>
+                <rank>#{user.recentLikeRank}</rank>
+                <value>{user.recentLikeCount}</value>
+            </item>
+            <item id="staff">
+                <img width="80" alt="staff" src="/img/staff.svg"/>
+                <rank>#{user.staffRank}</rank>
+                <value>{user.staffCount}</value>
+            </item>
+        </scores>
+    </box>
+{/if}
