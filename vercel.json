@@ -11,6 +11,10 @@
             "dest": "/api/rank.js?sortBy=$1"
         },
         {
+            "src": "/api/user/([^/.]{4,})", 
+            "dest": "/api/user.js?username=$1"
+        },
+        {
             "src": "/([^/.]{4,})",
             "dest": "/user.html",
             "continue": true,
