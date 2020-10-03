@@ -16,11 +16,13 @@ app.use(async ctx => {
             recentLike: "recentLikeCount",
             staff: "staffCount",
             comment: "commentCount"
-        }[sortBy] || "visitCount"
+        }[sortBy]
 
-        ctx.response.body = (await getData())
-            .sort((a, b) => b[sortByKey] - a[sortByKey])
-            .slice(0, limit && Number(limit))
+        let data = await getData()
+        if (sortByKey) {
+            data = data.sort((a, b) => b[sortByKey] - a[sortByKey])
+        }
+        ctx.response.body = data.slice(0, limit && Number(limit))
     } catch (e) {
         ctx.response.body = e.toString()
     }
