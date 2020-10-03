@@ -33,42 +33,6 @@
             "like like recentLike recentLike staff staff" 50%;
         font-size: 64px;
     }
-    rank {
-        position: absolute;
-        top: 60px;
-        left: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: #E03997;
-        width: 60px;
-        height: 30px;
-        border-radius: 15px;
-        font-size: 22px;
-    }
-    value {
-        margin-left: 30px;
-    }
-    item {
-        position: relative;
-        display: flex;
-        align-items: center;
-    }
-    #visit {
-        grid-area: visit;
-    }
-    #comment {
-        grid-area: comment;
-    }
-    #like {
-        grid-area: like;
-    }
-    #recentLike {
-        grid-area: recentLike;
-    }
-    #staff {
-        grid-area: staff;
-    }
     img.profile {
         border-radius: 50%;
     }
@@ -77,6 +41,8 @@
 <script lang="typescript">
 import { onMount } from "svelte"
 export let user
+
+import Item from "./Item.svelte"
 
 onMount(async () => {
     user = await fetch("/api/user").then(x => x.json())
@@ -91,31 +57,11 @@ onMount(async () => {
             </nickname>
         </identity>
         <scores>
-            <item id="visit">
-                <img width="80" alt="visit" src="/img/visit.svg"/>
-                <rank>#{user.visitRank}</rank>
-                <value>{user.visitCount}</value>
-            </item>
-            <item id="comment">
-                <img width="80" alt="comment" src="/img/comment.svg"/>
-                <rank>#{user.commentRank}</rank>
-                <value>{user.commentCount}</value>
-            </item>
-            <item id="like">
-                <img width="80" alt="like" src="/img/like.svg"/>
-                <rank>#{user.likeRank}</rank>
-                <value>{user.likeCount}</value>
-            </item>
-            <item id="recentLike">
-                <img width="80" alt="recentLike" src="/img/recentLike.svg"/>
-                <rank>#{user.recentLikeRank}</rank>
-                <value>{user.recentLikeCount}</value>
-            </item>
-            <item id="staff">
-                <img width="80" alt="staff" src="/img/staff.svg"/>
-                <rank>#{user.staffRank}</rank>
-                <value>{user.staffCount}</value>
-            </item>
+            <Item {user} icon="visit"/>
+            <Item {user} icon="comment"/>
+            <Item {user} icon="like"/>
+            <Item {user} icon="recentLike"/>
+            <Item {user} icon="staff"/>
         </scores>
     </box>
 {/if}
