@@ -17,8 +17,10 @@
         height: 120px;
     }
     identity img {
-        height: 120px;
-        width: 120px;
+        width: auto;
+        height: auto;
+        max-width: 120px;
+        max-height: 120px;
         border-radius: 50%;
     }
     identity nickname {
@@ -71,7 +73,7 @@ onMount(async () => {
         <box>
             <img alt="ent2.ml" src="/img/logo_text.png"/>
             <identity>
-                <img alt="{user.username}" title="{user.username}" src="https://playentry.org/uploads/profile/{user.id.substring(0, 2)}/{user.id.substring(2, 4)}/avatar_{user.id}.png"/>
+                <img width="120" height="120" alt="{user.username}" title="{user.username}" src="https://playentry.org/uploads/profile/{user.id.substring(0, 2)}/{user.id.substring(2, 4)}/avatar_{user.id}.png"/>
                 <nickname>
                     {user.username}
                 </nickname>
