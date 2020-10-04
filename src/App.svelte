@@ -9,6 +9,7 @@
         box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
         padding: 35px;
         box-sizing: border-box;
+        position: relative;
     }
     identity {
         display: flex;
@@ -47,6 +48,12 @@
     info {
         font-size: 24px;
     }
+    img[alt="ent2.ml"] {
+        position: absolute;
+        height: 30px;
+        bottom: 10px;
+        right: 10px;
+    }
 </style>
 
 <script lang="typescript">
@@ -62,6 +69,7 @@ onMount(async () => {
 {#if user}
     {#if !user.notUser}
         <box>
+            <img alt="ent2.ml" src="/img/logo_text.png"/>
             <identity>
                 <img alt="{user.username}" title="{user.username}" src="https://playentry.org/uploads/profile/{user.id.substring(0, 2)}/{user.id.substring(2, 4)}/avatar_{user.id}.png"/>
                 <nickname>
