@@ -45,7 +45,7 @@
         100% { transform: rotate(360deg); }
     }
     info {
-        font-size: 50px;
+        font-size: 24px;
     }
 </style>
 
@@ -79,7 +79,7 @@ onMount(async () => {
     {:else}
         <info>
             존재하지 않는 사용자입니다.<br/>
-            ID를 올바르게 입력하셨는지 확인해주세요! :D
+            ID를 올바르게 입력했는지 확인해주세요! :D
         </info>
         
     {/if}
