@@ -41,7 +41,7 @@ const app = new Application
 
 app.use(async ctx => {
     try {
-        const username = getQuery(ctx).username || ctx.cookies.get("username")
+        const username = getQuery(ctx).username
         let data = await getData()
         ctx.response.body = 
             data.find(x => x.username == username) 

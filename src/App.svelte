@@ -51,12 +51,12 @@
 
 <script lang="typescript">
 import { onMount } from "svelte"
-export let user
+export let username, user
 
 import Item from "./Item.svelte"
 
 onMount(async () => {
-    user = await fetch("/api/user").then(x => x.json())
+    user = await fetch(`/api/user/${username}`).then(x => x.json())
 })
 </script>
 {#if user}

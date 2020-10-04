@@ -17,10 +17,7 @@
         {
             "src": "/([^/.]{4,})",
             "dest": "/user.html",
-            "continue": true,
-            "headers": {
-                "Set-Cookie": "username=$1; SameSite=Strict"
-            }
+            "continue": true
         }
     ]
 }
