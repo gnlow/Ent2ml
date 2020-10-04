@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf8" />
+        <meta name="viewport" content="width=device-width" />
+
+        <title>Ent2ml</title>
+
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="stylesheet" href="/global.css" />
+
+        <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;800&display=swap" rel="stylesheet">
+
+        <style>
+            body {
+                flex-wrap: wrap;
+                align-content: center;
+            }
+            #logo {
+                object-fit: cover;
+                width: 100%;
+                max-width: 300px;
+            }
+            form {
+                height: 50px;
+                width: 400px;
+                display: flex;
+                border-radius: 5px;
+                box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+            }
+            input[type=text] {
+                height: 100%;
+                width: 80%;
+                margin: 0;
+                border: 0;
+                box-sizing: border-box;
+                border-radius: 5px 0 0 5px;
+                padding: 10px;
+                font-size: 24px;
+                font-family: Kanit, sans-serif;
+            }
+            input[type=submit] {
+                height: 100%;
+                width: 20%;
+                margin: 0;
+                border: 0;
+                box-sizing: border-box;
+                border-radius: 0 5px 5px 0;
+                background-color: #242424;
+                color: white;
+                font-size: 24px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <img id="logo" alt="Ent2ml logo" src="/img/logo.png"/>
+    <form onsubmit="location.href = `/${document.querySelector('input[type=text]').value}`; return false">
+            <input name="username" type="text" required minlength="4" maxlength="20">
+            <input type="submit" value="검색">
+        </form>
+    </body>
+</html>

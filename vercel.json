@@ -1,0 +1,23 @@
+{
+    "functions": {
+        "api/**/*.[jt]s": {
+            "runtime": "vercel-deno@0.7.0" 
+        }
+    },
+    "routes": [
+        { "handle": "filesystem" },
+        {
+            "src": "/api/rank/(visit|like|recentLike|staff|comment)", 
+            "dest": "/api/rank.js?sortBy=$1"
+        },
+        {
+            "src": "/api/user/([^/.]{4,})", 
+            "dest": "/api/user.js?username=$1"
+        },
+        {
+            "src": "/([^/.]{4,})",
+            "dest": "/user.html",
+            "continue": true
+        }
+    ]
+}
