@@ -23,13 +23,13 @@
 </style>
 
 <script lang="typescript">
-    export let icon, user
+    export let icon, user, title
 </script>
 
 <item style="grid-area: {icon}">
-    <img width="80" alt="{icon}" src="/img/{icon}.svg"/>
+    <img {title} width="80" alt="{icon}" src="/img/{icon}.svg"/>
     {#if user[`${icon}Rank`] < 100}
-        <rank>#{user[`${icon}Rank`]}</rank>
+        <rank title="{title} {user[`${icon}Rank`]}위">#{user[`${icon}Rank`]}</rank>
     {/if}
     <value>{user[`${icon}Count`]}</value>
 </item>

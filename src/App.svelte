@@ -63,17 +63,17 @@ onMount(async () => {
     {#if !user.notUser}
         <box>
             <identity>
-                <img alt="{user.username}" src="https://playentry.org/uploads/profile/{user.id.substring(0, 2)}/{user.id.substring(2, 4)}/avatar_{user.id}.png"/>
+                <img alt="{user.username}" title="{user.username}" src="https://playentry.org/uploads/profile/{user.id.substring(0, 2)}/{user.id.substring(2, 4)}/avatar_{user.id}.png"/>
                 <nickname>
                     {user.username}
                 </nickname>
             </identity>
             <scores>
-                <Item {user} icon="visit"/>
-                <Item {user} icon="comment"/>
-                <Item {user} icon="like"/>
-                <Item {user} icon="recentLike"/>
-                <Item {user} icon="staff"/>
+                <Item {user} icon="visit"      title="조회수"        />
+                <Item {user} icon="comment"    title="받은 댓글"      />
+                <Item {user} icon="like"       title="받은 좋아요"    />
+                <Item {user} icon="recentLike" title="최근 받은 좋아요"/>
+                <Item {user} icon="staff"      title="스태프 선정"    />
             </scores>
         </box>
     {:else}
