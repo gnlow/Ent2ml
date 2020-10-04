@@ -1,0 +1,13 @@
+html {
+    height: 100%;
+}
+body {
+    height: 100%;
+    background: linear-gradient(to right bottom, #e39330, #de316f);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin: 0;
+    font-family: Kanit, sans-serif;
+}
