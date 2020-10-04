@@ -55,7 +55,7 @@
 
     <body>
         <img id="logo" alt="Ent2ml logo" src="/img/logo.png"/>
-        <form>
+    <form onsubmit="location.href = `/${document.querySelector('input[type=text]').value}`; return false">
             <input name="username" type="text" required minlength="4" maxlength="20">
             <input type="submit" value="검색">
         </form>
