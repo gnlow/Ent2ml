@@ -21,7 +21,7 @@
                 width: 100%;
                 max-width: 300px;
             }
-            inputBox {
+            form {
                 height: 50px;
                 width: 400px;
                 display: flex;
@@ -39,7 +39,7 @@
                 font-size: 24px;
                 font-family: Kanit, sans-serif;
             }
-            input[type=button] {
+            input[type=submit] {
                 height: 100%;
                 width: 20%;
                 margin: 0;
@@ -55,10 +55,9 @@
 
     <body>
         <img id="logo" alt="Ent2ml logo" src="/img/logo.png"/>
-        <inputBox>
-            <input type="text" required minlength="4" maxlength="20">
-            <input type="button" value="검색">
-        </inputBox>
-        
+        <form>
+            <input name="username" type="text" required minlength="4" maxlength="20">
+            <input type="submit" value="검색">
+        </form>
     </body>
 </html>
