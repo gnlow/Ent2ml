@@ -60,12 +60,14 @@
 
 <script lang="typescript">
 import { onMount } from "svelte"
-export let username, user
+export let username, user, nicknameWidth
 
 import Item from "./Item.svelte"
-
 onMount(async () => {
     user = await fetch(`/api/user/${username}`).then(x => x.json())
+    setTimeout(() => {
+        nicknameWidth = document.querySelector("nickname").offsetWidth
+    }, 0)
 })
 </script>
 {#if user}
@@ -74,7 +76,9 @@ onMount(async () => {
             <img alt="ent2.ml" src="/img/logo_text.png"/>
             <identity>
                 <img width="120" height="120" alt="{user.username}" title="{user.username}" src="https://playentry.org/uploads/profile/{user.id.substring(0, 2)}/{user.id.substring(2, 4)}/avatar_{user.id}.png"/>
-                <nickname>
+                <nickname
+                    style="font-size: {nicknameWidth ? Math.min(100, 590 * 100 / nicknameWidth) : 100}px"
+                >
                     {user.username}
                 </nickname>
             </identity>
