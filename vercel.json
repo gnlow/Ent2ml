@@ -7,15 +7,19 @@
     "routes": [
         { "handle": "filesystem" },
         {
+            "src": "/f/(.+)",
+            "dest": "/$1"
+        },
+        {
             "src": "/api/rank/(visit|like|recentLike|staff|comment)", 
             "dest": "/api/rank.js?sortBy=$1"
         },
         {
-            "src": "/api/user/([^/.]{4,})", 
+            "src": "/api/user/([^/]{4,})", 
             "dest": "/api/user.js?username=$1"
         },
         {
-            "src": "/([^/.]{4,})",
+            "src": "/([^/]{4,})",
             "dest": "/user.html"
         }
     ]
