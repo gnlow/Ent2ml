@@ -26,20 +26,33 @@
 <script lang="typescript">
     import { onMount } from "svelte"
 
-    export let username, user, nicknameWidth
+    export let username, user, boxSize, nicknameWidth
     import Profile from "./Profile.svelte"
+    import Chart from "./Chart.svelte"
+    import Timeline from "./Timeline.svelte"
 
+    function resize() {
+        boxSize = Math.min(730, window.innerWidth - 90)
+    }
     
     onMount(async () => {
         user = await fetch(`/api/user/${username}`).then(x => x.json())
         setTimeout(() => {
+            resize()
             nicknameWidth = document.querySelector("nickname").offsetWidth
         }, 0)
     })
 </script>
+
+<svelte:window
+    on:resize={resize}
+/>
+
 {#if user}
     {#if !user.notUser}
-        <Profile {user} {nicknameWidth} />
+        <Profile {boxSize} {user} {nicknameWidth} />
+        <Chart />
+        <Timeline />
     {:else}
         <info>
             존재하지 않는 사용자입니다.<br/>

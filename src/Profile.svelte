@@ -38,22 +38,14 @@
 </style>
 
 <script lang="typescript">
-    import { onMount } from "svelte"
     export let user, nicknameWidth, boxSize
 
     import Item from "./Item.svelte"
-
-    function resize(event) {
-        boxSize = window.innerWidth - 90
-    }
     function fitTo(originWidth, originSize, width) {
         return Math.min(originSize, width / originWidth * originSize)
     }
 </script>
 
-<svelte:window
-    on:resize={resize}
-/>
 <box>
     <img alt="ent2.ml" src="/img/logo_text.png"/>
     <identity>
