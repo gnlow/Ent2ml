@@ -4,12 +4,6 @@
         flex-direction: column;
         max-width: 800px;
         min-height: 400px;
-        background: #242424;
-        border-radius: 10px;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-        margin: 10px;
-        padding: 35px;
-        box-sizing: border-box;
         position: relative;
     }
     identity {
