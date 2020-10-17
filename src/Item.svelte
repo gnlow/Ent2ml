@@ -19,6 +19,7 @@
         position: relative;
         display: flex;
         align-items: center;
+        flex-grow: 1;
     }
 </style>
 
@@ -26,7 +27,7 @@
     export let icon, user, title
 </script>
 
-<item style="grid-area: {icon}">
+<item>
     <img {title} width="80" alt="{icon}" src="/img/{icon}.svg"/>
     {#if user[`${icon}Rank`] < 100}
         <rank title="{title} {user[`${icon}Rank`]}위">#{user[`${icon}Rank`]}</rank>

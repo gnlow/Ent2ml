@@ -29,11 +29,10 @@
         margin-left: 20px;
     }
     scores {
-        display: grid;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: stretch;
         height: 100%;
-        grid-template:
-            "visit visit visit comment comment comment"   50%
-            "like like recentLike recentLike staff staff" 50%;
         font-size: 64px;
     }
     img[alt="ent2.ml"] {
