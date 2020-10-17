@@ -2,11 +2,12 @@
     box {
         display: flex;
         flex-direction: column;
-        width: 800px;
-        height: 400px;
+        max-width: 800px;
+        min-height: 400px;
         background: #242424;
         border-radius: 10px;
         box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        margin: 10px;
         padding: 35px;
         box-sizing: border-box;
         position: relative;
@@ -14,7 +15,6 @@
     identity {
         display: flex;
         align-items: center;
-        height: 120px;
     }
     identity img {
         width: auto;
@@ -44,17 +44,28 @@
 </style>
 
 <script lang="typescript">
-    export let user, nicknameWidth
+    import { onMount } from "svelte"
+    export let user, nicknameWidth, boxSize
 
     import Item from "./Item.svelte"
+
+    function resize(event) {
+        boxSize = window.innerWidth - 90
+    }
+    function fitTo(originWidth, originSize, width) {
+        return Math.min(originSize, width / originWidth * originSize)
+    }
 </script>
 
+<svelte:window
+    on:resize={resize}
+/>
 <box>
     <img alt="ent2.ml" src="/img/logo_text.png"/>
     <identity>
         <img width="120" height="120" alt="{user.username}" title="{user.username}" src="https://playentry.org/uploads/profile/{user.id.substring(0, 2)}/{user.id.substring(2, 4)}/avatar_{user.id}.png"/>
         <nickname
-            style="font-size: {nicknameWidth ? Math.min(100, 590 * 100 / nicknameWidth) : 100}px"
+            style="font-size: {nicknameWidth ? fitTo(nicknameWidth, 100, boxSize - 140) : 100}px"
         >
             {user.username}
         </nickname>
