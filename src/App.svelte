@@ -6,6 +6,7 @@
         margin: 10px;
         padding: 35px;
         box-sizing: border-box;
+        max-width: 800px;
     }
     loader {
         border: 16px solid #242424;
@@ -52,7 +53,7 @@
     {#if !user.notUser}
         <Profile {boxSize} {user} {nicknameWidth} />
         <Chart />
-        <Timeline />
+        <Timeline {user} />
     {:else}
         <info>
             존재하지 않는 사용자입니다.<br/>

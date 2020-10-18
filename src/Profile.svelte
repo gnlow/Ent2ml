@@ -2,7 +2,6 @@
     box {
         display: flex;
         flex-direction: column;
-        max-width: 800px;
         min-height: 400px;
         position: relative;
     }
