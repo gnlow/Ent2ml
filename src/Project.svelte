@@ -3,6 +3,9 @@
         position: relative;
         display: block;
     }
+    project-date {
+        font-size: 48px;
+    }
     project-name {
         position: absolute;
         left: 5px;
@@ -30,9 +33,8 @@
 
 <project>
     <project-date>
-
-    </project-date>
         {project.created.substring(0, 10)}
+    </project-date>
     <project-name>
         {project.name}
     </project-name>

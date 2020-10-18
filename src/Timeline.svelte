@@ -2,11 +2,31 @@
     box {
         width: calc(100% - 20px);
         max-width: 800px;
+        display: flex;
+    }
+    timeline-line {
+        width: 5px;
+        border-radius: 2.5px;
+        background: white;
+        margin: 0 35px 0 0;
     }
     ul {
         list-style: none;
         margin: 0;
         padding: 0;
+        flex-grow: 1;
+    }
+    li {
+        position: relative;
+    }
+    timeline-badge {
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        border-radius: 7.5px;
+        background: white;
+        left: -45px;
+        top: 30px;
     }
 </style>
 
@@ -43,9 +63,11 @@
 
 <box>
     {#if projects}
+        <timeline-line/>
         <ul>
             {#each projects as project}
                 <li>
+                    <timeline-badge/>
                     <Project {project} />
                 </li>
             {/each}
