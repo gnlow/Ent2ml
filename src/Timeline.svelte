@@ -1,10 +1,20 @@
 <style>
+    box {
+        width: calc(100% - 20px);
+        max-width: 800px;
+    }
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
 </style>
 
 <script lang="typescript">
     export let user, projects
     import { onMount } from "svelte"
     import fetchJsonp from "fetch-jsonp"
+    import Project from "./Project.svelte"
 
     const urlWithQuery = (urlString, params) => {
         const url = new URL(urlString)
@@ -36,7 +46,7 @@
         <ul>
             {#each projects as project}
                 <li>
-                    {project.name}
+                    <Project {project} />
                 </li>
             {/each}
         </ul>
