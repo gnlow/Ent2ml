@@ -56,7 +56,7 @@
         ).then(x => x.json())
         projects = (await Promise.all(res.data.map(async ({_id}) => {
             return await fetchJsonp(`https://playentry.org/api/project/${_id}`).then(x => x.json())
-        }))).sort((a, b) => a.created > b.created ? 1 : -1 )
+        }))).sort((a, b) => a.created < b.created ? 1 : -1 )
         console.log(projects)
     })
 </script>

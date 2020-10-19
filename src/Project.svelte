@@ -23,6 +23,7 @@
         border-radius: 5px;
         display: block;
         width: 100%;
+        max-width: 400px;
     }
 </style>
 
