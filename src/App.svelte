@@ -8,19 +8,12 @@
         box-sizing: border-box;
         max-width: 800px;
     }
-    loader {
-        border: 16px solid #242424;
-        border-top: 16px solid white;
-        border-radius: 50%;
-        width: 120px;
-        height: 120px;
-        animation: spin 2s linear infinite;
-    }
-    @keyframes spin {
-        100% { transform: rotate(360deg); }
-    }
     info {
         font-size: 24px;
+    }
+    loader-wrap {
+        height: 100%;
+        display: flex;
     }
 </style>
 
@@ -31,6 +24,7 @@
     import Profile from "./Profile.svelte"
     import Chart from "./Chart.svelte"
     import Timeline from "./Timeline.svelte"
+    import Loader from "./Loader.svelte"
 
     function resize() {
         boxSize = Math.min(730, window.innerWidth - 90)
@@ -62,5 +56,7 @@
         
     {/if}
 {:else}
-    <loader/>
+    <loader-wrap>
+        <Loader/>
+    </loader-wrap>
 {/if}
