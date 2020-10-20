@@ -19,6 +19,10 @@
             "dest": "/api/user.js?username=$1"
         },
         {
+            "src": "/api/pic/([0-9a-f]{4,})",
+            "dest": "/api/pic.js?id=$1"
+        },
+        {
             "src": "/([^/]{4,})",
             "dest": "/user.html"
         }

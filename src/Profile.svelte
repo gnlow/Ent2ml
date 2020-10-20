@@ -48,7 +48,7 @@
 <box>
     <img alt="ent2.ml" src="/img/logo_text.png"/>
     <identity>
-        <img width="120" height="120" alt="{user.username}" title="{user.username}" src="https://playentry.org/uploads/profile/{user.id.substring(0, 2)}/{user.id.substring(2, 4)}/avatar_{user.id}.png"/>
+        <img width="120" height="120" alt="{user.username}" title="{user.username}" src="/api/pic/{user.id}"/>
         <nickname
             style="font-size: {nicknameWidth ? fitTo(nicknameWidth, 100, boxSize - 140) : 100}px"
         >
