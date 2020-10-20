@@ -6,26 +6,21 @@
 </style>
 
 <script lang="typescript">
-    export let user
+    export let user, colors, ctx, myChart
     import { onMount } from "svelte"
     import Chart from "chart.js"
-    import Vibrant from "../node_modules/node-vibrant/dist/vibrant.min.js"
 
-    const getPalette = async () => {
-        const colors = await Vibrant.from(`/api/pic/${user.id}`).getPalette()
-        return [colors.Vibrant, colors.LightVibrant].map(x => {
-            const [r, g, b] = x.getRgb()
-            return `rgb(${r}, ${g}, ${b})`
-        })
-    }
+    $: if (colors) {
+            const gradient = ctx.createLinearGradient(0, 0, 0, 400)
+            gradient.addColorStop(0, colors[0])
+            gradient.addColorStop(1, colors[1])
+            myChart.data.datasets[0].borderColor = gradient
+            myChart.update()
+        }
 
     onMount(async () => {
-        const ctx = document.getElementById('myChart').getContext('2d')
-        const gradient = ctx.createLinearGradient(0, 0, 0, 400)
-        const [color1, color2] = await getPalette()
-        gradient.addColorStop(0, color1)
-        gradient.addColorStop(1, color2)
-        var myChart = new Chart(ctx, {
+        ctx = document.getElementById('myChart').getContext('2d')
+        myChart = new Chart(ctx, {
             type: "line",
             data: {
                 labels: user.record.map(({x}) => {
@@ -36,7 +31,7 @@
                 datasets: [{
                     label: "좋아요",
                     data: user.record,
-                    borderColor: gradient,
+                    borderColor: "white",
                     lineTension: 0,
                     fill: false,
                     asepectRatio: 2,

@@ -22,11 +22,21 @@
 <script lang="typescript">
     import { onMount } from "svelte"
 
-    export let username, user, boxSize, nicknameWidth
+    export let username, user, boxSize, nicknameWidth, colors
     import Profile from "./Profile.svelte"
     import Chart from "./Chart.svelte"
     import Timeline from "./Timeline.svelte"
     import Loader from "./Loader.svelte"
+    
+    import Vibrant from "../node_modules/node-vibrant/dist/vibrant.min.js"
+
+    const getPalette = async () => {
+        const colors = await Vibrant.from(`/api/pic/${user.id}`).getPalette()
+        return [colors.Vibrant, colors.LightVibrant].map(x => {
+            const [r, g, b] = x.getRgb()
+            return `rgb(${r}, ${g}, ${b})`
+        })
+    }
 
     function resize() {
         boxSize = Math.min(730, window.innerWidth - 90)
@@ -38,6 +48,7 @@
             resize()
             nicknameWidth = document.querySelector("nickname").offsetWidth
         }, 0)
+        colors = await getPalette()
     })
 </script>
 
@@ -48,7 +59,7 @@
 {#if user}
     {#if !user.notUser}
         <Profile {boxSize} {user} {nicknameWidth} />
-        <Chart {user} />
+        <Chart {user} {colors} />
         <Timeline {user} />
     {:else}
         <info>
