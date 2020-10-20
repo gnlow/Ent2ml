@@ -19,16 +19,28 @@
         white-space: nowrap;
         max-width: calc(100% - 20px);
     }
+    project-thumb {
+        display: block;
+        position: relative;
+    }
     img {
         border-radius: 5px;
         display: block;
         width: 100%;
         max-width: 400px;
     }
+    project-badge {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100px;
+        height: 100px;
+    }
 </style>
 
 <script lang="typescript">
-    export let project
+    export let project, isStaff
+    import Badge from "./Badge.svelte"
 </script>
 
 
@@ -36,8 +48,15 @@
     <project-date>
         {project.created.substring(0, 10)}
     </project-date>
+    <project-thumb>
+        <img alt="{project.name}" src="https://playentry.org/{project.thumb}"/>
+        <project-badge>
+            {#if isStaff}
+                <Badge/>
+            {/if}
+        </project-badge>
+    </project-thumb>
     <project-name>
         {project.name}
     </project-name>
-    <img alt="{project.name}" src="https://playentry.org/{project.thumb}"/>
 </project>

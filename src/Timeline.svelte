@@ -31,7 +31,7 @@
 </style>
 
 <script lang="typescript">
-    export let user, projects
+    export let user, projects, staffPicked
     import { onMount } from "svelte"
     import fetchJsonp from "fetch-jsonp"
     import Project from "./Project.svelte"
@@ -42,21 +42,35 @@
         return url.toString()
     }
 
-    onMount(async () => {
-        const res = await fetchJsonp(
+    const findProject = async option => {
+        return await fetchJsonp(
             urlWithQuery(
                 "https://playentry.org/api/project/find",
                 {
                     user: user.id,
-                    rows: 1,
                     noCache: Date.now(),
-                    sort: "likeCnt",
+                    ...option
                 }
             )
         ).then(x => x.json())
-        projects = (await Promise.all(res.data.map(async ({_id}) => {
+    }
+    onMount(async () => {
+        const [res1, res2] = await Promise.all([
+            findProject({
+                rows: 1,
+                sort: "likeCnt",
+            }),
+            findProject({
+                rows: 0,
+                sort: "staffPicked",
+            })
+        ])
+        projects = (await Promise.all(res1.data.map(async ({_id}) => {
             return await fetchJsonp(`https://playentry.org/api/project/${_id}`).then(x => x.json())
         }))).sort((a, b) => a.created < b.created ? 1 : -1 )
+
+        staffPicked = res2.data.map(({_id}) => _id)
+
         console.log(projects)
     })
 </script>
@@ -68,7 +82,7 @@
             {#each projects as project}
                 <li>
                     <timeline-badge/>
-                    <Project {project} />
+                    <Project {project} isStaff={staffPicked.includes(project._id)}/>
                 </li>
             {/each}
         </ul>
