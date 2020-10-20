@@ -48,7 +48,7 @@
 {#if user}
     {#if !user.notUser}
         <Profile {boxSize} {user} {nicknameWidth} />
-        <Chart />
+        <Chart {user} />
         <Timeline {user} />
     {:else}
         <info>
