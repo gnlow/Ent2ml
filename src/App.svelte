@@ -12,8 +12,10 @@
         font-size: 24px;
     }
     loader-wrap {
-        height: 100%;
+        height: calc(100vh - 70px);
         display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 </style>
 

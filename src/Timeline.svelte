@@ -28,12 +28,19 @@
         left: -45px;
         top: 30px;
     }
+    loader-wrap {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 </style>
 
 <script lang="typescript">
     export let user, projects, staffPicked
     import { onMount } from "svelte"
     import fetchJsonp from "fetch-jsonp"
+    import Loader from "./Loader.svelte"
     import Project from "./Project.svelte"
 
     const urlWithQuery = (urlString, params) => {
@@ -88,6 +95,8 @@
         </ul>
         
     {:else}
-        loading
+        <loader-wrap>
+            <Loader/>
+        </loader-wrap>
     {/if}
 </box>
