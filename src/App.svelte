@@ -11,7 +11,7 @@
     info {
         font-size: 24px;
     }
-    loader-wrap {
+    center-wrap {
         height: calc(100vh - 70px);
         display: flex;
         flex-direction: column;
@@ -87,6 +87,7 @@
 />
 
 {#if error}
+    <center-wrap>    
         <info>
             오류가 발생했습니다. :(<br/>
             새로고침해도 계속 같은 오류가 발생하면<br/>
@@ -95,20 +96,22 @@
             <br/>
             <code>{error}</code>
         </info>
+    </center-wrap>
 {:else if user}
     {#if !user.notUser}
         <Profile {boxSize} {user} {nicknameWidth} />
         <Chart {user} {colors} />
         <Timeline {user} />
     {:else}
-        <info>
-            존재하지 않는 사용자입니다.<br/>
-            ID를 올바르게 입력했는지 확인해주세요! :D
-        </info>
-        
+        <center-wrap>
+            <info>
+                존재하지 않는 사용자입니다.<br/>
+                ID를 올바르게 입력했는지 확인해주세요! :D
+            </info>
+        </center-wrap>
     {/if}
 {:else}
-    <loader-wrap>
+    <center-wrap>
         <Loader/>
-    </loader-wrap>
+    </center-wrap>
 {/if}
