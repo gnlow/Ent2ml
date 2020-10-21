@@ -9,14 +9,14 @@
         display: flex;
         align-items: center;
     }
-    identity img {
-        width: auto;
-        height: auto;
+    identity > img {
+        width: 120px;
+        height: 120px;
         max-width: 120px;
         max-height: 120px;
         border-radius: 50%;
     }
-    identity nickname {
+    identity > nickname {
         font-size: 100px;
         font-weight: 800;
         margin-left: 20px;
@@ -50,7 +50,7 @@
     <identity>
         <img width="120" height="120" alt="{user.username}" title="{user.username}" src="/api/pic/{user.id}"/>
         <nickname
-            style="font-size: {nicknameWidth ? fitTo(nicknameWidth, 100, boxSize - 140) : 100}px"
+            style="font-size: {nicknameWidth ? fitTo(nicknameWidth + 20, 100, boxSize - 140) : 100}px"
         >
             {user.username}
         </nickname>
