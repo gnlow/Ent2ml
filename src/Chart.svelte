@@ -19,23 +19,38 @@
         }
 
     onMount(async () => {
+        const getRecordsLabel = records => {
+            return records.map(({x}) => {
+                const date = new Date(x)
+                const unOffset = new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+                return unOffset.toISOString().split("T")[0]
+            })
+        }
         ctx = document.getElementById('myChart').getContext('2d')
         myChart = new Chart(ctx, {
             type: "line",
             data: {
-                labels: user.record.map(({x}) => {
-                    const date = new Date(x)
-                    const unOffset = new Date(date.getTime() - date.getTimezoneOffset() * 60000)
-                    return unOffset.toISOString().split("T")[0]
-                }),
-                datasets: [{
-                    label: "좋아요",
-                    data: user.record,
-                    borderColor: "white",
-                    lineTension: 0,
-                    fill: false,
-                    asepectRatio: 2,
-                }]
+                labels: getRecordsLabel(user.likeRecords),
+                datasets: [
+                    {
+                        label: "좋아요",
+                        yAxisID: "like",
+                        data: user.likeRecords,
+                        borderColor: "white",
+                        lineTension: 0,
+                        fill: false,
+                        asepectRatio: 2,
+                    },
+                    {
+                        label: "조회수",
+                        yAxisID: "visit",
+                        data: user.visitRecords,
+                        borderColor: "rgba(255, 255, 255, 0.6)",
+                        lineTension: 0,
+                        fill: false,
+                        asepectRatio: 2,
+                    },
+                ]
             },
             options: {
                 legend: {
@@ -52,14 +67,30 @@
                             color: "rgba(255, 255, 255, 0.1)"
                         }
                     }],
-                    yAxes: [{
-                        ticks: {
-                            fontColor: "rgba(255, 255, 255, 0.8)"
+                    yAxes: [
+                        {
+                            id: "like",
+                            type: "linear",
+                            position: "left",
+                            ticks: {
+                                fontColor: "rgba(255, 255, 255, 0.8)"
+                            },
+                            gridLines: {
+                                color: "rgba(255, 255, 255, 0.1)"
+                            }
                         },
-                        gridLines: {
-                            color: "rgba(255, 255, 255, 0.1)"
+                        {
+                            id: "visit",
+                            type: "linear",
+                            position: "right",
+                            ticks: {
+                                fontColor: "rgba(255, 255, 255, 0.6)"
+                            },
+                            gridLines: {
+                                color: "transparent"
+                            }
                         }
-                    }]
+                    ]
                 }
             }
         })

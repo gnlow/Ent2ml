@@ -51,13 +51,17 @@ app.use(async ctx => {
             data.find(x => x.username == username) 
             || await getUser(username) 
             || {notUser: true}
-        const record = users[username].records.map((record,i, l) => ({
+
+        const toChartData = records => records.map((record,i, l) => ({
             x: Number(dates[i + users[username].start]),
             y: l.slice(0, i + 1).reduce((prev, curr) => prev + curr, 0)
         }))
+        const visitRecords = toChartData(users[username].visitRecords)
+        const likeRecords = toChartData(users[username].likeRecords)
         ctx.response.body = {
             ...basicInfo,
-            record,
+            likeRecords,
+            visitRecords,
         }
     } catch (e) {
         ctx.response.body = e.toString()
