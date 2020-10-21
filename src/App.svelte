@@ -100,7 +100,9 @@
 {:else if user}
     {#if !user.notUser}
         <Profile {boxSize} {user} {nicknameWidth} />
-        <Chart {user} {colors} />
+        {#if !user.unranked}
+            <Chart {user} {colors} />
+        {/if}
         <Timeline {user} />
     {:else}
         <center-wrap>
