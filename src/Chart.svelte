@@ -15,6 +15,7 @@
             gradient.addColorStop(0, colors[0])
             gradient.addColorStop(1, colors[1])
             myChart.data.datasets[0].borderColor = gradient
+            myChart.options.scales.yAxes[0].ticks.fontColor = gradient
             myChart.update()
         }
 
@@ -22,8 +23,7 @@
         const getRecordsLabel = records => {
             return records.map(({x}) => {
                 const date = new Date(x)
-                const unOffset = new Date(date.getTime() - date.getTimezoneOffset() * 60000)
-                return unOffset.toISOString().split("T")[0]
+                return `${date.getMonth()}/${date.getDate()}`
             })
         }
         ctx = document.getElementById('myChart').getContext('2d')
@@ -61,7 +61,8 @@
                 scales: {
                     xAxes: [{
                         ticks: {
-                            fontColor: "rgba(255, 255, 255, 0.8)"
+                            fontColor: "rgba(255, 255, 255, 0.8)",
+                            maxTicksLimit: 10
                         },
                         gridLines: {
                             color: "rgba(255, 255, 255, 0.1)"
@@ -73,7 +74,9 @@
                             type: "linear",
                             position: "left",
                             ticks: {
-                                fontColor: "rgba(255, 255, 255, 0.8)"
+                                fontColor: "rgba(255, 255, 255, 0.8)",
+                                stepSize: 100,
+                                maxTicksLimit: 10,
                             },
                             gridLines: {
                                 color: "rgba(255, 255, 255, 0.1)"
@@ -84,7 +87,9 @@
                             type: "linear",
                             position: "right",
                             ticks: {
-                                fontColor: "rgba(255, 255, 255, 0.6)"
+                                fontColor: "rgba(255, 255, 255, 0.6)",
+                                stepSize: 1000,
+                                maxTicksLimit: 10,
                             },
                             gridLines: {
                                 color: "transparent"
