@@ -1,6 +1,8 @@
 import { Application, helpers } from "https://deno.land/x/oak@v6.0.1/mod.ts"
 const { getQuery } = helpers
 
+import { getUserByUsername } from "https://raw.githubusercontent.com/gnlow/deno-playentry/main/mod.ts"
+
 const getData = async () => {
     const [data, record] = await Promise.all([
         fetch("https://ent2ml-db.vercel.app/data.json").then(x => x.text()),
@@ -10,18 +12,19 @@ const getData = async () => {
 }
 
 const getUser = async username => {
-    const id = (await fetch(`https://playentry.org/api/getUserByUsername/${username}`).then(x => x.json()))?._id
-    if (id) {
+    const user = await getUserByUsername(username)
+    if (user.id) {
         const [allData, staffData] = await Promise.all([
-            fetch(`https://playentry.org/api/project/find?&rows=0&tab=my_project&type=project&searching=true&user=${id}&blamed=false`).then(x => x.json()),
-            fetch(`https://playentry.org/api/project/find?&sort=staffPicked&tab=my_project&type=project&searching=true&user=${id}&blamed=false`).then(x => x.json())
+            user.findProjects(),
+            user.findProjects({
+                sort: "staffPicked"
+            })
         ])
-        const {visitCount, likeCount, recentLikeCount, commentCount} = allData.data.reduce(({visitCount, likeCount, recentLikeCount, commentCount}, {visit, likeCnt, recentLikeCnt, comment}) => {
-            visitCount += visit
-            likeCount += likeCnt
-            recentLikeCount += recentLikeCnt
-            commentCount += comment
-            return {visitCount, likeCount, recentLikeCount, commentCount}
+        const {visitCount, likeCount, recentLikeCount, commentCount} = allData.reduce((prev, curr) => {
+            for (let key in prev) {
+                prev[key] += curr[key]
+            }
+            return prev
         }, {
             visitCount: 0,
             likeCount: 0,
@@ -30,8 +33,8 @@ const getUser = async username => {
         })
         return {
             username,
-            id,
-            staffCount: staffData.data.length,
+            id: user.id,
+            staffCount: staffData.length,
             visitCount,
             likeCount,
             recentLikeCount,
