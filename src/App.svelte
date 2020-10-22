@@ -34,7 +34,7 @@
     
     const getPalette = async () => {
         const colors = await Vibrant.from(`/api/pic/${user.id}`).getPalette()
-        return [colors.LightVibrant, colors.Vibrant].map(x => {
+        return [colors.LightVibrant, colors.Vibrant, colors.DarkVibrant].map(x => {
             const [r, g, b] = x.getRgb()
             return `rgb(${r}, ${g}, ${b})`
         })
@@ -104,7 +104,7 @@
         {#if !user.unranked}
             <LineChart {user} {colors} />
         {/if}
-            <PieChart {user} />
+            <PieChart {user} {colors} />
         <Timeline {user} />
     {:else}
         <center-wrap>

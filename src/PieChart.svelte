@@ -6,31 +6,48 @@
 </style>
 
 <script lang="typescript">
-    export let user, colors, ctx, myChart
+    export let user, colors, canvas, ctx, myChart, projects
     import { onMount } from "svelte"
     import Chart from "chart.js"
 
     $: if (colors) {
-            const gradient = ctx.createLinearGradient(0, 0, 0, 400)
-            gradient.addColorStop(0, colors[0])
-            gradient.addColorStop(1, colors[1])
-            myChart.data.datasets[0].borderColor = gradient
-            myChart.options.scales.yAxes[0].ticks.fontColor = gradient
-            myChart.update()
-        }
+        const gradient = ctx.createLinearGradient(0, 0, 0, 400)
+        gradient.addColorStop(0, colors[0])
+        gradient.addColorStop(1, colors[1])
+        myChart.data.datasets[0].backgroundColor = projects.fill(gradient)
+        myChart.update()
+    }
 
     onMount(async () => {
-        ctx = document.getElementById('pieChart').getContext('2d')
+        const sortedProjects = user.projects.sort((a, b) => b.likeCount - a.likeCount)
+        projects = [
+            ...sortedProjects.slice(0, 10),
+            sortedProjects
+                .slice(10)
+                .reduce((prev, {likeCount}) => {
+                    prev.likeCount += likeCount
+                    return prev
+                }, {
+                    name: "나머지",
+                    likeCount: 0
+                })
+        ]
+        canvas = document.getElementById('pieChart')
+        ctx = canvas.getContext('2d')
         myChart = new Chart(ctx, {
-            type: "pie",
+            type: "doughnut",
             data: {
-                labels: [1,2,3],
+                labels: projects.map(({name}) => name),
                 datasets: [{
-                    data: [4,5,6]
+                    data: projects.map(({likeCount}) => likeCount),
+                    backgroundColor: "white",
+                    borderColor: "#242424"
                 }]
             },
             options: {
-                
+                legend: {
+                    display: false
+                }
             }
         })
     })
