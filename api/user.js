@@ -11,37 +11,35 @@ const getData = async () => {
     return [data, record]
 }
 
-const getUser = async username => {
-    const user = await getUserByUsername(username)
-    if (user.id) {
-        const [allData, staffData] = await Promise.all([
-            user.findProjects(),
-            user.findProjects({
-                sort: "staffPicked"
-            })
-        ])
-        const {visitCount, likeCount, recentLikeCount, commentCount} = allData.reduce((prev, curr) => {
-            for (let key in prev) {
-                prev[key] += curr[key]
-            }
-            return prev
-        }, {
-            visitCount: 0,
-            likeCount: 0,
-            recentLikeCount: 0,
-            commentCount: 0,
+const getUser = async user => {
+    const [allData, staffData] = await Promise.all([
+        user.findProjects(),
+        user.findProjects({
+            sort: "staffPicked"
         })
-        return {
-            username,
-            id: user.id,
-            staffCount: staffData.length,
-            visitCount,
-            likeCount,
-            recentLikeCount,
-            commentCount,
-            unranked: true,
+    ])
+    const {visitCount, likeCount, recentLikeCount, commentCount} = allData.reduce((prev, curr) => {
+        for (let key in prev) {
+            prev[key] += curr[key]
         }
-    }
+        return prev
+    }, {
+        visitCount: 0,
+        likeCount: 0,
+        recentLikeCount: 0,
+        commentCount: 0,
+    })
+    allData.forEach(data => delete data.owner)
+    return [{
+        username: user.username,
+        id: user.id,
+        staffCount: staffData.length,
+        visitCount,
+        likeCount,
+        recentLikeCount,
+        commentCount,
+        unranked: true,
+    }, allData]
 }
 
 const app = new Application
@@ -49,22 +47,29 @@ const app = new Application
 app.use(async ctx => {
     try {
         const username = getQuery(ctx).username
-        let [data, {dates, users}] = await getData()
-        const basicInfo = 
-            data.find(x => x.username == username) 
-            || await getUser(username) 
-            || {notUser: true}
+        const user = await getUserByUsername(username)
 
-        const toChartData = records => records?.map((record,i, l) => ({
-            x: Number(dates[i + users[username].start]),
-            y: l.slice(0, i + 1).reduce((prev, curr) => prev + curr, 0)
-        }))
-        const visitRecords = toChartData(users[username]?.visitRecords)
-        const likeRecords = toChartData(users[username]?.likeRecords)
-        ctx.response.body = {
-            ...basicInfo,
-            likeRecords,
-            visitRecords,
+        if (user) {
+            let [data, {dates, users}] = await getData()
+            const [userInfo, projects] = await getUser(user)
+            const basicInfo = 
+                data.find(x => x.username == username) 
+                || userInfo
+
+            const toChartData = records => records?.map((record,i, l) => ({
+                x: Number(dates[i + users[username].start]),
+                y: l.slice(0, i + 1).reduce((prev, curr) => prev + curr, 0)
+            }))
+            const visitRecords = toChartData(users[username]?.visitRecords)
+            const likeRecords = toChartData(users[username]?.likeRecords)
+            ctx.response.body = {
+                ...basicInfo,
+                likeRecords,
+                visitRecords,
+                projects
+            }
+        } else {
+            ctx.response.body = {notUser: true}
         }
     } catch (e) {
         ctx.response.body = e.toString()
