@@ -24,7 +24,7 @@
 
     export let username, user, boxSize, nicknameWidth, colors, error
     import Profile from "./Profile.svelte"
-    import Chart from "./Chart.svelte"
+    import LineChart from "./LineChart.svelte"
     import Timeline from "./Timeline.svelte"
     import Loader from "./Loader.svelte"
     
@@ -101,7 +101,7 @@
     {#if !user.notUser}
         <Profile {boxSize} {user} {nicknameWidth} />
         {#if !user.unranked}
-            <Chart {user} {colors} />
+            <LineChart {user} {colors} />
         {/if}
         <Timeline {user} />
     {:else}
