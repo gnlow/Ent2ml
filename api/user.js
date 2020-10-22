@@ -5,10 +5,10 @@ import { getUserByUsername } from "https://raw.githubusercontent.com/gnlow/deno-
 
 const getData = async () => {
     const [data, record] = await Promise.all([
-        fetch("https://ent2ml-db.vercel.app/data.json").then(x => x.text()),
-        fetch("https://ent2ml-db.vercel.app/record.json").then(x => x.text())
+        fetch("https://ent2ml-db.vercel.app/data.json").then(x => x.json()),
+        fetch("https://ent2ml-db.vercel.app/record.json").then(x => x.json())
     ])
-    return [JSON.parse(data), JSON.parse(record)]
+    return [data, record]
 }
 
 const getUser = async username => {
