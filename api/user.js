@@ -12,13 +12,13 @@ const getData = async () => {
 }
 
 const getUser = async user => {
-    const [allData, staffData] = await Promise.all([
+    const [allProjects, staffProjects] = await Promise.all([
         user.findProjects(),
         user.findProjects({
             sort: "staffPicked"
         })
     ])
-    const {visitCount, likeCount, recentLikeCount, commentCount} = allData.reduce((prev, curr) => {
+    const {visitCount, likeCount, recentLikeCount, commentCount} = allProjects.reduce((prev, curr) => {
         for (let key in prev) {
             prev[key] += curr[key]
         }
@@ -29,17 +29,18 @@ const getUser = async user => {
         recentLikeCount: 0,
         commentCount: 0,
     })
-    allData.forEach(data => delete data.owner)
+    allProjects.forEach(project => delete project.owner)
+    staffProjects.forEach(project => allProjects.find(({id}) => id == project.id).isStaff = true)
     return [{
         username: user.username,
         id: user.id,
-        staffCount: staffData.length,
+        staffCount: staffProjects.length,
         visitCount,
         likeCount,
         recentLikeCount,
         commentCount,
         unranked: true,
-    }, allData]
+    }, allProjects]
 }
 
 const app = new Application

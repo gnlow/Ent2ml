@@ -39,7 +39,7 @@
 </style>
 
 <script lang="typescript">
-    export let project, isStaff
+    export let project
     import Badge from "./Badge.svelte"
 </script>
 
@@ -51,7 +51,7 @@
     <project-thumb>
         <img alt="{project.name}" src="https://playentry.org/{project.thumb}"/>
         <project-badge>
-            {#if isStaff}
+            {#if project.isStaff}
                 <Badge/>
             {/if}
         </project-badge>

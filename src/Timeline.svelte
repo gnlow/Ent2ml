@@ -37,47 +37,19 @@
 </style>
 
 <script lang="typescript">
-    export let user, projects, staffPicked
+    export let user, projects
     import { onMount } from "svelte"
     import fetchJsonp from "fetch-jsonp"
     import Loader from "./Loader.svelte"
     import Project from "./Project.svelte"
 
-    const urlWithQuery = (urlString, params) => {
-        const url = new URL(urlString)
-        url.search = new URLSearchParams(params).toString()
-        return url.toString()
-    }
-
-    const findProject = async option => {
-        return await fetchJsonp(
-            urlWithQuery(
-                "https://playentry.org/api/project/find",
-                {
-                    user: user.id,
-                    noCache: Date.now(),
-                    ...option
-                }
-            )
-        ).then(x => x.json())
-    }
     onMount(async () => {
-        const [res1, res2] = await Promise.all([
-            findProject({
-                rows: 1,
-                sort: "likeCnt",
-            }),
-            findProject({
-                rows: 0,
-                sort: "staffPicked",
-            })
-        ])
-        projects = (await Promise.all(res1.data.map(async ({_id}) => {
-            return await fetchJsonp(`https://playentry.org/api/project/${_id}`).then(x => x.json())
+        projects = (await Promise.all(user.projects.slice(0, 10).map(async ({id, isStaff}) => {
+            return {
+                ...(await fetchJsonp(`https://playentry.org/api/project/${id}`).then(x => x.json())),
+                isStaff
+            }
         }))).sort((a, b) => a.created < b.created ? 1 : -1 )
-
-        staffPicked = res2.data.map(({_id}) => _id)
-
         console.log(projects)
     })
 </script>
@@ -89,7 +61,7 @@
             {#each projects as project}
                 <li>
                     <timeline-badge/>
-                    <Project {project} isStaff={staffPicked.includes(project._id)}/>
+                    <Project {project}/>
                 </li>
             {/each}
         </ul>
