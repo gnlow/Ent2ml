@@ -56,10 +56,20 @@
         </nickname>
     </identity>
     <scores>
-        <Item {user} icon="visit"      title="조회수"        />
-        <Item {user} icon="comment"    title="받은 댓글"      />
-        <Item {user} icon="like"       title="받은 좋아요"    />
-        <Item {user} icon="recentLike" title="최근 받은 좋아요"/>
-        <Item {user} icon="staff"      title="스태프 선정"    />
+        <Item
+            {user} basis="50%" 
+            icon="visit"      title="조회수"        />
+        <Item
+            {user} basis="50%" 
+            icon="comment"    title="받은 댓글"      />
+        <Item
+            {user} 
+            icon="like"       title="받은 좋아요"    />
+        <Item
+            {user}
+            icon="recentLike" title="최근 받은 좋아요"/>
+        <Item
+            {user}
+            icon="staff"      title="스태프 선정"    />
     </scores>
 </box>

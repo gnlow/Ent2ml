@@ -24,10 +24,10 @@
 </style>
 
 <script lang="typescript">
-    export let icon, user, title
+    export let icon, user, title, basis
 </script>
 
-<item>
+<item style="flex-basis: {basis}">
     <img {title} width="80" alt="{icon}" src="/img/{icon}.svg"/>
     {#if user[`${icon}Rank`] < 100}
         <rank title="{title} {user[`${icon}Rank`]}위">#{user[`${icon}Rank`]}</rank>
