@@ -25,6 +25,7 @@
     export let username, user, boxSize, nicknameWidth, colors, error
     import Profile from "./Profile.svelte"
     import LineChart from "./LineChart.svelte"
+    import PieChart from "./PieChart.svelte"
     import Timeline from "./Timeline.svelte"
     import Loader from "./Loader.svelte"
     
@@ -103,6 +104,7 @@
         {#if !user.unranked}
             <LineChart {user} {colors} />
         {/if}
+            <PieChart {user} />
         <Timeline {user} />
     {:else}
         <center-wrap>

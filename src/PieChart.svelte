@@ -26,9 +26,9 @@
                 return `${date.getMonth()}/${date.getDate()}`
             })
         }
-        ctx = document.getElementById('lineChart').getContext('2d')
+        ctx = document.getElementById('pieChart').getContext('2d')
         myChart = new Chart(ctx, {
-            type: "line",
+            type: "pie",
             data: {
                 labels: getRecordsLabel(user.likeRecords),
                 datasets: [
@@ -103,5 +103,5 @@
 </script>
 
 <box>
-    <canvas id="lineChart"></canvas>
+    <canvas id="pieChart"></canvas>
 </box>
