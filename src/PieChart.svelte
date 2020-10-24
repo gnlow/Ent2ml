@@ -24,10 +24,11 @@
 
     onMount(async () => {
         const sortedProjects = user.projects.sort((a, b) => b.likeCount - a.likeCount)
+        const restPoint = sortedProjects.findIndex(({likeCount}) => likeCount < user.likeCount / 100 * 2)
         projects = [
-            ...sortedProjects.slice(0, 10),
+            ...sortedProjects.slice(0, restPoint),
             sortedProjects
-                .slice(10)
+                .slice(restPoint)
                 .reduce((prev, {likeCount}) => {
                     prev.likeCount += likeCount
                     return prev
