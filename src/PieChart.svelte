@@ -12,8 +12,6 @@
 
     import DataLabels from "chartjs-plugin-datalabels"
 
-    Chart.plugins.unregister(DataLabels)
-
     function getGradient(ctx, a, b) {
         const gradient = ctx.createLinearGradient(0, 0, 0, 400)
         gradient.addColorStop(0, a)
@@ -30,18 +28,22 @@
     onMount(async () => {
         const sortedProjects = user.projects.sort((a, b) => b.likeCount - a.likeCount)
         const restPoint = sortedProjects.findIndex(({likeCount}) => likeCount < user.likeCount / 100 * 2)
-        projects = [
-            ...sortedProjects.slice(0, restPoint),
-            sortedProjects
-                .slice(restPoint)
-                .reduce((prev, {likeCount}) => {
-                    prev.likeCount += likeCount
-                    return prev
-                }, {
-                    name: "나머지",
-                    likeCount: 0
-                })
-        ]
+        if (restPoint != -1) {
+            projects = [
+                ...sortedProjects.slice(0, restPoint || 1),
+                sortedProjects
+                    .slice(restPoint || 1)
+                    .reduce((prev, {likeCount}) => {
+                        prev.likeCount += likeCount
+                        return prev
+                    }, {
+                        name: "나머지",
+                        likeCount: 0
+                    })
+            ]
+        } else {
+            projects = sortedProjects
+        }
         canvas = document.getElementById('pieChart')
         ctx = canvas.getContext('2d')
         myChart = new Chart(ctx, {

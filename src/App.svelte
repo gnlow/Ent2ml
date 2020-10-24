@@ -30,6 +30,10 @@
     import Loader from "./Loader.svelte"
     
     import Vibrant from "../node_modules/node-vibrant/dist/vibrant.min.js"
+
+    import Chart from "chart.js"
+    import DataLabels from "chartjs-plugin-datalabels"
+    Chart.plugins.unregister(DataLabels)
     
     const getPalette = async () => {
         const colors = await Vibrant.from(`/api/pic/${user.id}`).getPalette()
@@ -103,8 +107,12 @@
         {#if !user.unranked}
             <LineChart {user} {colors} />
         {/if}
-            <PieChart {user} {colors} />
-        <Timeline {user} />
+        {#if user.projects.length}
+            {#if user.projects.length > 1}
+                <PieChart {user} {colors} />
+            {/if}
+            <Timeline {user} />
+        {/if}
     {:else}
         <center-wrap>
             <info>
