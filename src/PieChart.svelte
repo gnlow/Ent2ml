@@ -78,6 +78,7 @@
                         backgroundColor: "#242424",
                         anchor: "end",
                         align: "end",
+                        display: "auto",
                     }
                 }
             },
