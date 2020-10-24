@@ -30,7 +30,6 @@
     import Loader from "./Loader.svelte"
     
     import Vibrant from "../node_modules/node-vibrant/dist/vibrant.min.js"
-
     
     const getPalette = async () => {
         const colors = await Vibrant.from(`/api/pic/${user.id}`).getPalette()

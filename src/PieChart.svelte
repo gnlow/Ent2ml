@@ -10,6 +10,10 @@
     import { onMount } from "svelte"
     import Chart from "chart.js"
 
+    import DataLabels from "chartjs-plugin-datalabels"
+
+    Chart.plugins.unregister(DataLabels)
+
     $: if (colors) {
         const gradient = ctx.createLinearGradient(0, 0, 0, 400)
         gradient.addColorStop(0, colors[0])
@@ -45,10 +49,28 @@
                 }]
             },
             options: {
+                title: {
+                    display: true,
+                    text: "작품별 좋아요 수",
+                    fontColor: "white",
+                    fontSize: 24,
+                },
                 legend: {
                     display: false
+                },
+                plugins: {
+                    datalabels: {
+                        formatter(val, context) {
+                            return context.chart.data.labels[context.dataIndex]
+                        },
+                        color: "white",
+                        backgroundColor: "#242424",
+                        anchor: "end",
+                        align: "end",
+                    }
                 }
-            }
+            },
+            plugins: [DataLabels]
         })
     })
 </script>
