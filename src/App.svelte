@@ -46,6 +46,11 @@
     function resize() {
         boxSize = Math.min(730, window.innerWidth - 90)
     }
+
+    function log(msg) {
+        console.log(`Ent2ml: ${msg}`)
+        return ""
+    }
     
     const main = async () => {
             user = await fetch(`/api/user/${username}`).then(x => x.json())
@@ -106,12 +111,18 @@
         <Profile {boxSize} {user} {nicknameWidth} />
         {#if !user.unranked}
             <LineChart {user} {colors} />
+        {:else}
+            {log("LineChart 숨김 (랭킹 미등록)")}
         {/if}
         {#if user.projects.length}
             {#if user.projects.length > 1}
                 <PieChart {user} {colors} />
+            {:else}
+                {log("PieChart 숨김 (작품이 1개)")}
             {/if}
             <Timeline {user} />
+            {:else}
+                {log("TimeLine, PieChart 숨김 (작품 없음)")}
         {/if}
     {:else}
         <center-wrap>

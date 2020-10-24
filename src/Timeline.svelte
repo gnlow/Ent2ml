@@ -50,7 +50,6 @@
                 isStaff
             }
         }))).sort((a, b) => a.created < b.created ? 1 : -1 )
-        console.log(projects)
     })
 </script>
 
