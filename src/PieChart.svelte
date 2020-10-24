@@ -14,11 +14,16 @@
 
     Chart.plugins.unregister(DataLabels)
 
-    $: if (colors) {
+    function getGradient(ctx, a, b) {
         const gradient = ctx.createLinearGradient(0, 0, 0, 400)
-        gradient.addColorStop(0, colors[0])
-        gradient.addColorStop(1, colors[1])
-        myChart.data.datasets[0].backgroundColor = projects.fill(gradient)
+        gradient.addColorStop(0, a)
+        gradient.addColorStop(1, b)
+        return gradient
+    }
+
+    $: if (colors) {
+        myChart.data.datasets[0].backgroundColor = getGradient(ctx, colors[0], colors[1])
+        myChart.data.datasets[0].hoverBackgroundColor = getGradient(ctx, colors[1], colors[2])
         myChart.update()
     }
 
