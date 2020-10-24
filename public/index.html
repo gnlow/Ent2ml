@@ -28,7 +28,7 @@
                 border-radius: 5px;
                 box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
             }
-            input[type=text] {
+            input[type=search] {
                 height: 100%;
                 width: 80%;
                 margin: 0;
@@ -55,8 +55,8 @@
 
     <body>
         <img id="logo" alt="Ent2ml logo" src="/img/logo.png"/>
-    <form onsubmit="location.href = `/${document.querySelector('input[type=text]').value}`; return false">
-            <input name="username" type="text" required minlength="4" maxlength="20">
+    <form onsubmit="location.href = `/${document.querySelector('input[type=search]').value}`; return false">
+            <input name="username" type="search" required minlength="4" maxlength="20" placeholder="엔트리 계정 ID 입력">
             <input type="submit" value="검색">
         </form>
     </body>

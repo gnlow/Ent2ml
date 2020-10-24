@@ -49,7 +49,9 @@
         {project.created.substring(0, 10)}
     </project-date>
     <project-thumb>
-        <img alt="{project.name}" src="https://playentry.org/{project.thumb}"/>
+        <a href="https://playentry.org/{project.user.username}/{project._id}">
+            <img alt="{project.name}" src="https://playentry.org/{project.thumb}"/>
+        </a>
         <project-badge>
             {#if project.isStaff}
                 <Badge/>
