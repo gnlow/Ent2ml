@@ -64,6 +64,11 @@
                 legend: {
                     display: false
                 },
+                layout: {
+                    padding: {
+                        bottom: 30
+                    }
+                },
                 plugins: {
                     datalabels: {
                         formatter(val, context) {
