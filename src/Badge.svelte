@@ -10,6 +10,8 @@
         height: 100%;
         mask: url("/img/staff.svg");
         mask-size: cover;
+        -webkit-mask: url("/img/staff.svg");
+        -webkit-mask-size: cover;
         display: block;
     }
     bg {
