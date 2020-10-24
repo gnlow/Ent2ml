@@ -20,22 +20,21 @@
         }
 
     onMount(async () => {
-        const getRecordsLabel = records => {
-            return records.map(({x}) => {
-                const date = new Date(x)
-                return `${date.getMonth()}/${date.getDate()}`
-            })
+        function withDate(records) {
+            return records.map(record => {
+                            record.x = new Date(Number(record.x))
+                            return record
+                        })
         }
         ctx = document.getElementById('lineChart').getContext('2d')
         myChart = new Chart(ctx, {
             type: "line",
             data: {
-                labels: getRecordsLabel(user.likeRecords),
                 datasets: [
                     {
                         label: "좋아요",
                         yAxisID: "like",
-                        data: user.likeRecords,
+                        data: withDate(user.likeRecords),
                         borderColor: "white",
                         lineTension: 0,
                         fill: false,
@@ -44,7 +43,7 @@
                     {
                         label: "조회수",
                         yAxisID: "visit",
-                        data: user.visitRecords,
+                        data: withDate(user.visitRecords),
                         borderColor: "rgba(255, 255, 255, 0.6)",
                         lineTension: 0,
                         fill: false,
@@ -60,6 +59,14 @@
                 },
                 scales: {
                     xAxes: [{
+                        type: "time",
+                        time: {
+                            unit: "day",
+                            displayFormats: {
+                                day: "M/D"
+                            },
+                            tooltipFormat: "M/D"
+                        },
                         ticks: {
                             fontColor: "rgba(255, 255, 255, 0.8)",
                             maxTicksLimit: 10
