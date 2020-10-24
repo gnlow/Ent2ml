@@ -54,26 +54,28 @@
     
     const main = async () => {
             user = await fetch(`/api/user/${username}`).then(x => x.json())
-            setTimeout(() => {
-                resize()
-                nicknameWidth = document.querySelector("nickname").offsetWidth
-            }, 0)
-            colors = await getPalette()
-            const css = document.styleSheets[0]
-            css.insertRule(`
-                .colored {
-                    background: linear-gradient(
-                        to right bottom,
-                        ${colors[0]},
-                        ${colors[1]}
-                    ) fixed;
-                }
-            `, css.cssRules.length)
-            css.insertRule(`
-                .hide {
-                    opacity: 0;
-                }
-            `, css.cssRules.length)
+            if (!user.notUser) {
+                setTimeout(() => {
+                    resize()
+                    nicknameWidth = document.querySelector("nickname").offsetWidth
+                }, 0)
+                colors = await getPalette()
+                const css = document.styleSheets[0]
+                css.insertRule(`
+                    .colored {
+                        background: linear-gradient(
+                            to right bottom,
+                            ${colors[0]},
+                            ${colors[1]}
+                        ) fixed;
+                    }
+                `, css.cssRules.length)
+                css.insertRule(`
+                    .hide {
+                        opacity: 0;
+                    }
+                `, css.cssRules.length)
+            }
             document.querySelector("body").classList.add("colored")
             document.querySelector("bg-gradient").classList.add("hide")
         }
