@@ -43,7 +43,7 @@
 </script>
 
 <img id="logo" alt="Ent2ml logo" src="/img/logo.png"/>
-<form on:submit={toUserPage}>
+<form on:submit|preventDefault={toUserPage}>
     <input name="username" type="search" required minlength="4" maxlength="20" placeholder="엔트리 계정 ID 입력">
     <input type="submit" value="검색">
 </form>
