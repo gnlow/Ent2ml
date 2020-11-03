@@ -8,18 +8,37 @@
 
     <link rel="icon" type="image/png" href="/f/favicon.png" />
     <link rel="stylesheet" href="/f/global.css" />
-    <link rel="stylesheet" href="/f/bundle.css" />
+    <link rel="stylesheet" href="/f/user.css" />
 
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;800&display=swap" rel="stylesheet">
 
     <style>
+      html {
+        scrollbar-color: white #242424;
+      }
       body {
+        padding: 35px 0;
+        height: auto;
+        min-height: calc(100vh - 70px);
+        background: linear-gradient(to right bottom, #842fe3 , #317ede) fixed;
+        flex-direction: column;
+        justify-content: flex-start;
+      }
+      bg-gradient {
+        margin: -35px 0;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        z-index: -100;
         background: linear-gradient(to right bottom, #842fe3 , #317ede);
+        opacity: 1;
+        transition: opacity 2s;
       }
     </style>
   </head>
 
   <body>
-    <script src="/f/bundle.js"></script>
+    <bg-gradient/>
+    <script src="/f/user.js"></script>
   </body>
 </html>
