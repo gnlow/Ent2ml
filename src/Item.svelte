@@ -19,15 +19,14 @@
         position: relative;
         display: flex;
         align-items: center;
-        flex-grow: 1;
     }
 </style>
 
 <script lang="typescript">
-    export let icon, user, title, basis
+    export let icon, user, title
 </script>
 
-<item style="flex-basis: {basis}">
+<item style="grid-area: {icon}">
     <img {title} width="80" alt="{icon}" src="/img/{icon}.svg"/>
     {#if user[`${icon}Rank`] < 100}
         <rank title="{title} {user[`${icon}Rank`]}위">#{user[`${icon}Rank`]}</rank>
