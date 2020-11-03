@@ -1,4 +1,3 @@
-// @ts-ignore
 import App from './HomeApp.svelte';
 
 const app = new App({

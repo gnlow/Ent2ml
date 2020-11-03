@@ -3,7 +3,6 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
-import ts from '@rollup/plugin-typescript';
 
 import preprocess from 'svelte-preprocess';
 
@@ -11,7 +10,7 @@ const production = !process.env.ROLLUP_WATCH;
 
 function basicConf(filename) {
   return {
-    input: `src/${filename}.ts`,
+    input: `src/${filename}.js`,
     output: {
       sourcemap: true,
       format: 'iife',
@@ -28,7 +27,6 @@ function basicConf(filename) {
       }),
       resolve({ browser: true }),
       commonjs(),
-      ts({ include: ["**/*.ts"] }),
       !production && livereload('public'),
       production && terser(),
     ],
