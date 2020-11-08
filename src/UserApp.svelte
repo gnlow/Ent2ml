@@ -38,7 +38,7 @@
     const getPalette = async () => {
         const colors = await Vibrant.from(`/api/pic/${user.id}`).getPalette()
         return [colors.LightVibrant, colors.Vibrant, colors.DarkVibrant].map(x => {
-            const [r, g, b] = x.getRgb()
+            const [r, g, b] = x?.getRgb() || [255, 255, 255]
             return `rgb(${r}, ${g}, ${b})`
         })
     }
