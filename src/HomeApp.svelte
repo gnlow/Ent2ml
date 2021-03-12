@@ -55,6 +55,9 @@
                     url = "https://playentry.org/"
                 }
                 break;
+            default:
+                info = "엔트리 홈으로 이동"
+                url = "https://playentry.org/"
         }
     })
 </script>
