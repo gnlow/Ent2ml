@@ -11,6 +11,10 @@
             "dest": "/$1"
         },
         {
+            "src": "/api/temp_user/([^/]{4,})", 
+            "dest": "/api/temp_user.js?username=$1"
+        },
+        {
             "src": "/api/rank/(visit|like|recentLike|staff|comment)", 
             "dest": "/api/rank.js?sortBy=$1"
         },
