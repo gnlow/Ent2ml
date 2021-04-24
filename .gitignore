@@ -1,8 +1,0 @@
-.DS_Store
-node_modules
-public/user.*
-public/home.*
-.env
-.env.build
-.vscode
-.vercel
