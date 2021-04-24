@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="./global.css" />
+    <link rel="icon" type="image/png" href="https://svelte.dev/favicon.png">
+    <title>Svelte app</title>
+  </head>
+  <body>
+    <script src="./dist/main.js"></script>
+    <!-- injected by snel don't remove it -->
+    <script role="hot-reload">
+      (() => {
+        if ("WebSocket" in window) {
+          const socket = new WebSocket("ws://localhost:3001");
+
+          socket.addEventListener("open", () => {
+            console.log(
+              "%c Snel %c Hot Reloading %c",
+              "background:#35495e; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff",
+              "background:#ff3e00; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff",
+              "background:transparent"
+            );
+
+            socket.send(
+              JSON.stringify({
+                connect_to: ["Reload"],
+              })
+            );
+          });
+
+          socket.addEventListener("close", () => {
+            console.log(
+              "%c Hot Reloading %c connection cut off 🔌 %c",
+              "background:#35495e ; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff",
+              "background:#ff3e00 ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff",
+              "background:transparent"
+            );
+            alert("Hot Reloading connection cut off 🔌");
+          });
+
+          socket.addEventListener("error", () => {
+            console.log(
+              "%c Hot Reloading %c connection error %c",
+              "background:#35495e ; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff",
+              "background:#ff3e00 ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff",
+              "background:transparent"
+            );
+            alert("Hot Reloading connection error");
+          });
+
+          const Reload = () => {
+            const badge = document.querySelector("#msg");
+            if (badge) badge.setAttribute("style", "margin-top: 30px;");
+            setTimeout(() => window.location.reload(), 500);
+          }
+
+          socket.addEventListener("message", (event) => {
+            try {
+              const { message } = JSON.parse(event.data);
+
+              if (message === "reload") {
+                console.log(
+                  "%c 🔥 %c Reloading... %c",
+                  "background:#35495e; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff;",
+                  "background:#ff3e00; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff;",
+                  "background:transparent"
+                );
+                Reload();
+              }
+
+              if (message === "compiling") {
+                console.log(
+                  "%c 🔥 %c Recompiling... %c",
+                  "background:#35495e; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff;",
+                  "background:#ff3e00; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff;",
+                  "background:transparent"
+                );
+              } else {
+                const { type, message, stack } = JSON.parse(
+                  JSON.parse(event.data).message
+                );
+
+                document.body.style.backgroundColor = "#181b1c";
+                document.body.style.color = "#f9f7f4";
+                document.title = `Snel ${type}`;
+
+                document.body.innerHTML =
+                '<div style="margin: 40px;">' +
+                '<h1 style="color: #e32945;">Snel:' +
+                '  <span style="color: #dbdbd9;">'
+                    + type.toString() + ' 😭 ' +
+                '  </span>' +
+                '</h1>' +
+                '<hr>' +
+                '<strong>💥 Crashed: 👉' +
+                '  <span>' + message.toString() + '</span>' +
+                '</strong>' +
+                '<br>' +
+                '<pre style="width: 50px; color: #757471; font-size: 20px;">'  + stack.toString() + '</pre>' +
+                '<div id="msg" style="display: none;">' +
+                  '<div style="background:transparent; text-aling: center;">' +
+                    '<span style="background:#35495e; padding: 5px; border-radius: 3px 0 0 3px;  color: #fff;">' +
+                      '🔥' +
+                    '</span>' +
+                    '<span style="background:#ff3e00; padding: 5px; border-radius: 0 3px 3px 0;  color: #fff;">' +
+                      'Recompiling' +
+                    '</span>' +
+                  '</div>' +
+                '</div>' +
+              '</div>'
+              }
+            } catch (error) {}
+          });
+        } else {
+          console.log(
+            "%c Hot Reloading %c your browser not support websockets :( %c",
+            "background:#35495e; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff;",
+            "background:#ff3e00; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff;",
+            "background:transparent;"
+          );
+        }
+      })();
+    </script>
+  </body>
+</html>

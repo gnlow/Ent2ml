@@ -1,0 +1,4 @@
+{
+  "root": "./src/App.svelte",
+  "port": "3000"
+}
