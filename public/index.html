@@ -13,7 +13,7 @@
     <script role="hot-reload">
       (() => {
         if ("WebSocket" in window) {
-          const socket = new WebSocket("ws://localhost:3001");
+          const socket = new WebSocket("ws://localhost:8081");
 
           socket.addEventListener("open", () => {
             console.log(
